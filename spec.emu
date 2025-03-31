@@ -4,36 +4,53 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 <script src="./spec.js"></script>
 <pre class="metadata">
-title: Proposal Title Goes Here
-stage: -1
-contributors: Your Name(s) Here
+title: Disallow Adding New Private Fields to Non-extensible Objects
+stage: 0
+contributors: Shu-yu Guo
 </pre>
 
-<emu-clause id="sec-demo-clause">
-  <h1>This is an emu-clause</h1>
-  <p>This is an algorithm:</p>
-  <emu-alg>
-    1. Let _proposal_ be *undefined*.
-    1. If IsAccepted(_proposal_) is *true*, then
-      1. Let _stage_ be *0*<sub>ℤ</sub>.
-    1. Else,
-      1. Let _stage_ be *-1*<sub>ℤ</sub>.
-    1. Return ? ToString(_stage_).
-  </emu-alg>
-</emu-clause>
+<emu-clause id="modifications-to-operations-on-objects">
+  <h1>Modifications to Operations on Objects</h1>
 
-<emu-clause id="sec-is-accepted" type="abstract operation">
-  <h1>
-      IsAccepted (
-        _proposal_: an ECMAScript language value
-      ): a Boolean
-  </h1>
-  <dl class="header">
-    <dt>description</dt>
-    <dd>Tells you if the proposal was accepted</dd>
-  </dl>
-  <emu-alg>
-    1. If _proposal_ is not a String, or is not accepted, return *false*.
-    1. Return *true*.
-  </emu-alg>
+  <emu-clause id="sec-privatefieldadd" type="abstract operation">
+    <h1>
+      PrivateFieldAdd (
+        _O_: an Object,
+        _P_: a Private Name,
+        _value_: an ECMAScript language value,
+      ): either a normal completion containing ~unused~ or a throw completion
+    </h1>
+    <dl class="header">
+    </dl>
+    <emu-alg>
+      1. <ins>If _O_.[[Extensible]] is *false*, throw a *TypeError* exception.</ins>
+      1. If the host is a web browser, then
+        1. Perform ? HostEnsureCanAddPrivateElement(_O_).
+      1. Let _entry_ be PrivateElementFind(_O_, _P_).
+      1. If _entry_ is not ~empty~, throw a *TypeError* exception.
+      1. Append PrivateElement { [[Key]]: _P_, [[Kind]]: ~field~, [[Value]]: _value_ } to _O_.[[PrivateElements]].
+      1. Return ~unused~.
+    </emu-alg>
+  </emu-clause>
+
+  <emu-clause id="sec-privatemethodoraccessoradd" type="abstract operation">
+    <h1>
+      PrivateMethodOrAccessorAdd (
+        _O_: an Object,
+        _method_: a PrivateElement,
+      ): either a normal completion containing ~unused~ or a throw completion
+    </h1>
+    <dl class="header">
+    </dl>
+    <emu-alg>
+      1. Assert: _method_.[[Kind]] is either ~method~ or ~accessor~.
+      1. <ins>If _O_.[[Extensible]] is *false*, throw a *TypeError* exception.</ins>
+      1. If the host is a web browser, then
+        1. Perform ? HostEnsureCanAddPrivateElement(_O_).
+      1. Let _entry_ be PrivateElementFind(_O_, _method_.[[Key]]).
+      1. If _entry_ is not ~empty~, throw a *TypeError* exception.
+      1. Append _method_ to _O_.[[PrivateElements]].
+      1. Return ~unused~.
+    </emu-alg>
+  </emu-clause>
 </emu-clause>

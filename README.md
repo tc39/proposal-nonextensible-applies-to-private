@@ -1,50 +1,74 @@
-# template-for-proposals
+# Disallow Adding New Private Fields to Non-extensible Objects
 
-A repository template for ECMAScript proposals.
+Stage: 0
+Champions: Mark Miller, Shu-yu Guo
 
-## Before creating a proposal
+## Background
 
-Please ensure the following:
-  1. You have read the [process document](https://tc39.github.io/process-document/)
-  1. You have reviewed the [existing proposals](https://github.com/tc39/proposals/)
-  1. You are aware that your proposal requires being a member of TC39, or locating a TC39 delegate to “champion” your proposal
+A JavaScript object is [extensible](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible) if new properties can be added to it. Objects are born extensible, and may be made non-extensible by `[Object.preventExtensions()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions)`. Being made non-extensible is one way. Once non-extensible, an object cannot become extensible again.
 
-## Create your proposal repo
+[Private fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_properties) do not respect objects' extensibility. They can be added to any object.
 
-Follow these steps:
-  1. Click the green [“use this template”](https://github.com/tc39/template-for-proposals/generate) button in the repo header. (Note: Do not fork this repo in GitHub's web interface, as that will later prevent transfer into the TC39 organization)
-  1. Update ecmarkup and the biblio to the latest version: `npm install --save-dev ecmarkup@latest && npm install --save-dev --save-exact @tc39/ecma262-biblio@latest`.
-  1. Go to your repo settings page:
-      1. Under “General”, under “Features”, ensure “Issues” is checked, and disable “Wiki”, and “Projects” (unless you intend to use Projects)
-      1. Under “Pull Requests”, check “Always suggest updating pull request branches” and “automatically delete head branches”
-      1. Under the “Pages” section on the left sidebar, and set the source to “deploy from a branch”, select “gh-pages” in the branch dropdown, and then ensure that “Enforce HTTPS” is checked.
-      1. Under the “Actions” section on the left sidebar, under “General”, select “Read and write permissions” under “Workflow permissions” and click “Save”
-  1. [“How to write a good explainer”][explainer] explains how to make a good first impression.
+For example, the following snippet works.
 
-      > Each TC39 proposal should have a `README.md` file which explains the purpose
-      > of the proposal and its shape at a high level.
-      >
-      > ...
-      >
-      > The rest of this page can be used as a template ...
+```javascript
+class NonExtensibleBase {
+  constructor() {
+    Object.preventExtensions(this);
+  }
+}
 
-      Your explainer can point readers to the `index.html` generated from `spec.emu`
-      via markdown like
+class ClassWithPrivateField extends NonExtensibleBase {
+  #val;
 
-      ```markdown
-      You can browse the [ecmarkup output](https://ACCOUNT.github.io/PROJECT/)
-      or browse the [source](https://github.com/ACCOUNT/PROJECT/blob/HEAD/spec.emu).
-      ```
+  constructor(v) {
+    super();
+    this.#val = v;
+  }
+}
 
-      where *ACCOUNT* and *PROJECT* are the first two path elements in your project's Github URL.
-      For example, for github.com/**tc39**/**template-for-proposals**, *ACCOUNT* is “tc39”
-      and *PROJECT* is “template-for-proposals”.
+new ClassWithPrivateField(42); // doesn't throw
+```
 
+Contrast it with using properties, which doesn't work.
 
-## Maintain your proposal repo
+```javascript
+class ClassWithProperty extends NonExtensibleBase {
+  _val;
 
-  1. Make your changes to `spec.emu` (ecmarkup uses HTML syntax, but is not HTML, so I strongly suggest not naming it “.html”)
-  1. Any commit that makes meaningful changes to the spec, should run `npm run build` to verify that the build will succeed and the output looks as expected.
-  1. Whenever you update `ecmarkup`, run `npm run build` to verify that the build will succeed and the output looks as expected.
+  constructor(v) {
+    super();
+    this._val = v;
+  }
+}
 
-  [explainer]: https://github.com/tc39/how-we-work/blob/HEAD/explainer.md
+new ClassWithProperty(42); // throws TypeError
+```
+
+## Proposal
+
+This proposal proposes to change the behavior of non-extensibility to also apply to private fields. That is, to make it so that private fields cannot be added to non-extensible objects.
+
+For the above example, that means `new ClassWithPrivateField(42)` would throw a `TypeError`, exactly like `new ClassWithProperty(42)`.
+
+## Motivation: fixed layout guarantee
+
+The [JS structs proposal](https://github.com/tc39/proposal-structs/) and the [JS interop for WasmGC proposal](https://github.com/WebAssembly/custom-descriptors/blob/main/proposals/custom-descriptors/Overview.md) are adding fixed layout objects. Specifically, fixed layout means that once an object is constructed, its layout in memory is immutable.
+
+The closest notion the JS language has to fixed layout is non-extensibility, with the notable exception of private fields not respecting it. This proposal addresses the issue by proposing to change non-extensibility to mean fixed layout, inclusive of private fields.
+
+While private fields can be implemented with out-of-line storage outside of the object that contains it (by using a `WeakMap`) doing so is inefficient and slow. Performant JS engines implement private fields as in-line in the object, much like properties.
+
+The champions also contend the use of private fields suggests in-line storage, given its syntactic similarity to properties. Private fields' usage in the normal case (ignoring meta-object protocol manipulation like getting property descriptors) also exactly mirror the usage of properties, suggesting that extending extensibility to be inclusive of private fields would match developer intuition.
+
+## Web compatibility
+
+Private fields have shipped with the extensibility-disrespecting behavior from the beginning. Therefore there is a non-zero chance that the proposed change is not web compatible. To that end, Chrome has a [use counter](https://chromestatus.com/metrics/feature/timeline/popularity/5209) tracking occurrences of extending non-extensible objects with private fields in the wild.
+
+## Alternative
+
+If this proposed change is not web compatible, the alternative design is to make a new integrity trait called "fixed shape", which implies non-extensibility and also prevents private fields from being added. This new trait would be exposed via `Object.makeFixedShape()` and `Object.isFixedShape()`.
+
+This is less ergonomic for the developer, as the champions contend it is already developer intuition that non-extensibility ought to include private fields.
+
+This is also less desirable for implementation, as it requires objects to track another bit in addition to extensibility to see if new private fields may be added.
