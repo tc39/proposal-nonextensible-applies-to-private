@@ -5,7 +5,7 @@ Champions: Mark Miller, Shu-yu Guo
 
 ## Background
 
-A JavaScript object is [extensible](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible) if new properties can be added to it. Objects are born extensible, and may be made non-extensible by `[Object.preventExtensions()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions)`. Being made non-extensible is one way. Once non-extensible, an object cannot become extensible again.
+A JavaScript object is [extensible](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible) if new properties can be added to it. Objects are born extensible, and may be made non-extensible by [`Object.preventExtensions()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions). Being made non-extensible is one way. Once non-extensible, an object cannot become extensible again.
 
 [Private fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_properties) do not respect objects' extensibility. They can be added to any object.
 
