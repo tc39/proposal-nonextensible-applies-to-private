@@ -55,7 +55,7 @@ For the above example, that means `new ClassWithPrivateField(42)` would throw a 
 
 The [JS structs proposal](https://github.com/tc39/proposal-structs/) and the [JS interop for WasmGC proposal](https://github.com/WebAssembly/custom-descriptors/blob/main/proposals/custom-descriptors/Overview.md) are adding fixed layout objects. Specifically, fixed layout means that once an object is constructed, its layout in memory is immutable.
 
-The closest notion the JS language has to fixed layout is non-extensibility, with the notable exception of private fields not respecting it. This proposal addresses the issue by proposing to change non-extensibility to mean fixed layout, inclusive of private fields.
+The closest notion the JS language has to fixed layout is being [sealed](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/seal), which implies non-extensibility. However, this has the notable exception of private fields not respecting non-extensibility. This proposal addresses the issue by proposing to change non-extensibility to mean fixed layout, inclusive of private fields.
 
 While private fields can be implemented with out-of-line storage outside of the object that contains it (by using a `WeakMap`) doing so is inefficient and slow. Performant JS engines implement private fields as in-line in the object, much like properties.
 
