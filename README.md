@@ -1,7 +1,18 @@
 # Disallow Adding New Private Fields to Non-extensible Objects
 
+Prevent stamping private fields to non-extensible object, just as we already prevent adding public properties.
+
+## Status
+
 Stage: 0
-Champions: Mark Miller, Shu-yu Guo
+
+Champions:
+- Mark Miller,
+- Shu-yu Guo
+
+## Talks
+
+***for stage 1 or 2 or 2.7*** - April 2025 Plenary ([slides.key](./no-stamping-talks/non-extensible-applies-to-private.key), [slides.pdf](./no-stamping-talks/non-extensible-applies-to-private.pdf))
 
 ## Background
 
