@@ -4,6 +4,8 @@ Prevent stamping private fields to non-extensible object, just as we already pre
 
 ## Status
 
+[The TC39 Process](https://tc39.es/process-document/)
+
 Stage: 0
 
 Champions:
