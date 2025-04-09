@@ -83,7 +83,7 @@ Private fields have shipped with the extensibility-disrespecting behavior from t
 
 ## Alternative
 
-If this proposed change is not web compatible, the alternative design is to make a new integrity trait called "fixed shape", which implies non-extensibility and also prevents private fields from being added. This new trait would be exposed via `Object.makeFixedShape()` and `Object.isFixedShape()`.
+If this proposed change is not web compatible, the [alternative design](https://github.com/tc39/proposal-stabilize) is to make a [new integrity trait](https://www.youtube.com/watch?v=oMPeo4faynY&list=PLzDw4TTug5O3vIAd4IR1Gp5t_46co_dv9) called "fixed shape", which implies non-extensibility and also prevents private fields from being added. This new trait would be exposed via `Object.makeFixedShape()` and `Object.isFixedShape()`.
 
 This is less ergonomic for the developer, as the champions contend it is already developer intuition that non-extensibility ought to include private fields.
 
