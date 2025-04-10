@@ -12,6 +12,7 @@ Champions:
 - Mark Miller (@erights)
 - Shu-yu Guo (@syg)
 - Chip Morningstar (@fudco)
+- Erik Marks (@remarks)
 
 ## Talks
 
