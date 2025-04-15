@@ -6,7 +6,7 @@ Prevent stamping private fields to non-extensible object, just as we already pre
 
 [The TC39 Process](https://tc39.es/process-document/)
 
-Stage: 0
+Stage: 2 (+ conditional 2.7)
 
 Champions:
 - Mark Miller (@erights)
@@ -18,7 +18,7 @@ Champions:
 
 - (broken off from [Stabilize](https://github.com/tc39/proposal-stabilize) as explained at ***Stage 1 Status Update: Hopes and Dreams*** - February 2025 TC39 Plenary ([slides.key](./stabilize-talks/stabilize-stage1-status-update.key), [slides.pdf](./stabilize-talks/stabilize-stage1-status-update.pdf), [video](https://www.youtube.com/watch?v=oMPeo4faynY&list=PLzDw4TTug5O3vIAd4IR1Gp5t_46co_dv9)))
 
-- ***for stage 1 or 2 or 2.7*** - April 2025 Plenary ([slides.key](./no-stamping-talks/non-extensible-applies-to-private.key), [slides.pdf](./no-stamping-talks/non-extensible-applies-to-private.pdf))
+- ***for stage 1 or 2 or 2.7*** - April 2025 Plenary ([slides.key](./no-stamping-talks/non-extensible-applies-to-private.key), [slides.pdf](./no-stamping-talks/non-extensible-applies-to-private.pdf), [video](https://www.youtube.com/watch?v=ILkJTgcc_30&list=PLzDw4TTug5O3vIAd4IR1Gp5t_46co_dv9&index=27))
 
 ## Background
 
