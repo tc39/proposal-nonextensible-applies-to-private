@@ -1,5 +1,5 @@
 var lastBlocks;
-class C {
+export class C {
   static #FOO = "#FOO";
   static #BAR = (
     (() => {
