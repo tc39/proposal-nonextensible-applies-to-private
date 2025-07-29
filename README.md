@@ -20,7 +20,7 @@ Champions:
 
 - ***for stage 1 or 2 or 2.7*** - April 2025 Plenary ([slides.key](./no-stamping-talks/non-extensible-applies-to-private.key), [slides.pdf](./no-stamping-talks/non-extensible-applies-to-private.pdf), [video](https://www.youtube.com/watch?v=ILkJTgcc_30&list=PLzDw4TTug5O3vIAd4IR1Gp5t_46co_dv9&index=27))
 
-- ***Stage 2.7 Status Update*** - July 2025 Plenary ([slides.key](./no-stamping-talks/non-extensible-applies-to-private-update.key), [slides.pdf](./no-stamping-talks/non-extensible-applies-to-private-update.pdf))
+- ***Stage 2.7 Status Update*** - July 2025 Plenary ([slides.key](./no-stamping-talks/non-extensible-applies-to-private-update.key), [slides.pdf](./no-stamping-talks/non-extensible-applies-to-private-update.pdf), [video](https://www.youtube.com/watch?v=kFBvqdQOjQ8&list=PLzDw4TTug5O3vIAd4IR1Gp5t_46co_dv9&index=28))
 
 ## Background
 
