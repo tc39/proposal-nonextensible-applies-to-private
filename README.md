@@ -22,6 +22,8 @@ Champions:
 
 - ***Stage 2.7 Status Update*** - July 2025 Plenary ([slides.key](./no-stamping-talks/non-extensible-applies-to-private-update.key), [slides.pdf](./no-stamping-talks/non-extensible-applies-to-private-update.pdf), [video](https://www.youtube.com/watch?v=kFBvqdQOjQ8&list=PLzDw4TTug5O3vIAd4IR1Gp5t_46co_dv9&index=28))
 
+- ***for Stage 3*** - September 2025 Plenary ([slices.key](./no-stamping-talks/non-extensible-applies-to-private-for-s3.key), [slides.pdf](./no-stamping-talks/non-extensible-applies-to-private-for-s3.pdf))
+
 ## Background
 
 A JavaScript object is [extensible](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible) if new properties can be added to it. Objects are born extensible, and may be made non-extensible by [`Object.preventExtensions()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions). Being made non-extensible is one way. Once non-extensible, an object cannot become extensible again.
