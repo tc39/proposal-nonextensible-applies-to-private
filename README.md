@@ -6,7 +6,7 @@ Prevent stamping private fields to non-extensible object, just as we already pre
 
 [The TC39 Process](https://tc39.es/process-document/)
 
-Stage: 2.7
+Stage: 3
 
 Champions:
 - Mark Miller (@erights)
