@@ -9,10 +9,10 @@ stage: 3
 contributors: Shu-yu Guo
 </pre>
 
-<emu-clause id="modifications-to-operations-on-objects">
-  <h1>Modifications to Operations on Objects</h1>
+<emu-clause id="sec-operations-on-objects" number="7.3">
+  <h1>Operations on Objects</h1>
 
-  <emu-clause id="sec-privatefieldadd" type="abstract operation">
+  <emu-clause id="sec-privatefieldadd" type="abstract operation" number="27">
     <h1>
       PrivateFieldAdd (
         _O_: an Object,
@@ -33,7 +33,7 @@ contributors: Shu-yu Guo
     </emu-alg>
   </emu-clause>
 
-  <emu-clause id="sec-privatemethodoraccessoradd" type="abstract operation">
+  <emu-clause id="sec-privatemethodoraccessoradd" type="abstract operation" number="28">
     <h1>
       PrivateMethodOrAccessorAdd (
         _O_: an Object,
