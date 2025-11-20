@@ -23,9 +23,9 @@ contributors: Shu-yu Guo
     <dl class="header">
     </dl>
     <emu-alg>
-      1. <ins>If _O_.[[Extensible]] is *false*, throw a *TypeError* exception.</ins>
       1. If the host is a web browser, then
         1. Perform ? HostEnsureCanAddPrivateElement(_O_).
+      1. <ins>If ? IsExtensible(_O_) is *false*, throw a *TypeError* exception.</ins>
       1. Let _entry_ be PrivateElementFind(_O_, _P_).
       1. If _entry_ is not ~empty~, throw a *TypeError* exception.
       1. Append PrivateElement { [[Key]]: _P_, [[Kind]]: ~field~, [[Value]]: _value_ } to _O_.[[PrivateElements]].
@@ -44,9 +44,9 @@ contributors: Shu-yu Guo
     </dl>
     <emu-alg>
       1. Assert: _method_.[[Kind]] is either ~method~ or ~accessor~.
-      1. <ins>If _O_.[[Extensible]] is *false*, throw a *TypeError* exception.</ins>
       1. If the host is a web browser, then
         1. Perform ? HostEnsureCanAddPrivateElement(_O_).
+      1. <ins>If ? IsExtensible(_O_) is *false*, throw a *TypeError* exception.</ins>
       1. Let _entry_ be PrivateElementFind(_O_, _method_.[[Key]]).
       1. If _entry_ is not ~empty~, throw a *TypeError* exception.
       1. Append _method_ to _O_.[[PrivateElements]].
