@@ -5,7 +5,7 @@
 <script src="./spec.js"></script>
 <pre class="metadata">
 title: Disallow Adding New Private Fields to Non-extensible Objects
-stage: 0
+stage: 3
 contributors: Shu-yu Guo
 </pre>
 
