@@ -32,6 +32,29 @@ contributors: Shu-yu Guo
       1. Return ~unused~.
     </emu-alg>
   </emu-clause>
+
+  <emu-clause id="sec-privatemethodoraccessoradd" type="abstract operation" number="28">
+    <h1>
+      PrivateMethodOrAccessorAdd (
+        _O_: an Object,
+        _method_: a PrivateElement,
+      ): either a normal completion containing ~unused~ or a throw completion
+    </h1>
+    <dl class="header">
+    </dl>
+    <emu-alg>
+      1. Assert: _method_.[[Kind]] is either ~method~ or ~accessor~.
+      1. <del>If the host is a web browser, then</del>
+        1. <del>Perform ? HostEnsureCanAddPrivateElement(_O_).</del>
+      1. Let _entry_ be PrivateElementFind(_O_, _method_.[[Key]]).
+      1. If _entry_ is not ~empty~, throw a *TypeError* exception.
+      1. Append _method_ to _O_.[[PrivateElements]].
+      1. Return ~unused~.
+    </emu-alg>
+    <emu-note>
+      <p>The values for private methods and accessors are shared across instances. This operation does not create a new copy of the method or accessor.</p>
+    </emu-note>
+  </emu-clause>
 </emu-clause>
 
 <emu-clause id="sec-ecmascript-function-objects" number="10.2">
@@ -49,6 +72,8 @@ contributors: Shu-yu Guo
     <emu-alg>
       1. Let _methods_ be _ctor_.[[PrivateMethods]].
       1. <ins>If _methods_ is not empty, then</ins>
+        1. <ins>If the host is a web browser, then</ins>
+          1. <ins>Perform ? HostEnsureCanAddPrivateElement(_obj_).</ins>
         1. <ins>If ? IsExtensible(_obj_) is *false*, throw a *TypeError* exception.</ins>
       1. For each PrivateElement _method_ of _methods_, do
         1. Perform ? PrivateMethodOrAccessorAdd(_obj_, _method_).
